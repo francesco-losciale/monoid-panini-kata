@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'io.franzbecker.gradle-lombok' version '3.1.0'
+
+}
+
+group 'monoid-panini-kata'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    implementation group: 'org.projectlombok', name:'lombok', version:'1.18.12'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.6.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.6.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.15.0'
+}
+
+test {
+    useJUnitPlatform()
+}
