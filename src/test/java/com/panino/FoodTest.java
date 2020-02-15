@@ -40,7 +40,7 @@ public class FoodTest {
     }
 
     @Test
-    void testNutritionalValuesAddition() {
+    void testPaninoNutritionalValuesAddition() {
         final Food panino = createPanino("salad", "cheese", "tomato");
         final Food salad = mapper.createFood("salad");
         final Food cheese = mapper.createFood("cheese");
@@ -48,6 +48,15 @@ public class FoodTest {
         assertThat(panino.getFat()).isEqualTo(salad.getFat() + cheese.getFat() + tomato.getFat());
         assertThat(panino.getSalt()).isEqualTo(salad.getSalt() + cheese.getSalt() + tomato.getSalt());
         assertThat(panino.getCalories()).isEqualTo(salad.getCalories() + cheese.getCalories() + tomato.getCalories());
+    }
+
+    @Test
+    void testPaninoIsOrganic() {
+        final Food salad = mapper.createFood("salad");
+        final Food bread = mapper.createFood("salad");
+        final Food ham = mapper.createFood("ham");
+        assertThat(salad.combine(bread).getOrganic()).isTrue();
+        assertThat(salad.combine(bread).combine(ham).getOrganic()).isFalse();
     }
 
     private Food createPanino(String... ingredients) {
@@ -61,10 +70,10 @@ public class FoodTest {
         private Map<String, Food> internalMap = new HashMap();
         {
             internalMap.put("nothing", builder().dietCompatibility(NO_VALUE).build());
-            internalMap.put("salad", builder().dietCompatibility(VEGAN).fat(0).salt(0).calories(50).build());
+            internalMap.put("salad", builder().dietCompatibility(VEGAN).fat(0).salt(0).calories(50).organic(true).build());
             internalMap.put("cheese", builder().dietCompatibility(VEGETARIAN).fat(80).salt(0).calories(20000).build());
             internalMap.put("tomato", builder().dietCompatibility(VEGAN).fat(1).salt(3).calories(100).build());
-            internalMap.put("bread", builder().dietCompatibility(VEGAN).fat(2).salt(0.2).calories(100000).build());
+            internalMap.put("bread", builder().dietCompatibility(VEGAN).fat(2).salt(0.2).calories(100000).organic(true).build());
             internalMap.put("ham", builder().dietCompatibility(OMNIVORE).fat(150).salt(0.1).calories(300000).build());
             internalMap.put("fish", builder().dietCompatibility(PESCETARIAN).fat(2).salt(0.2).calories(100000).build());
         }

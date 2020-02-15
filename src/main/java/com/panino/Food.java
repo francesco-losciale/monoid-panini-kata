@@ -9,6 +9,7 @@ public class Food {
     private double fat;
     private double salt;
     private double calories;
+    private boolean organic;
 
     public double getFat() {
         return fat;
@@ -22,6 +23,10 @@ public class Food {
         return calories;
     }
 
+    public Boolean getOrganic() {
+        return organic;
+    }
+
     public DietCompatibility getDietCompatibility() {
         return dietCompatibility;
     }
@@ -30,6 +35,7 @@ public class Food {
         return new Food(food.dietCompatibility.combine(this.dietCompatibility),
                 food.getFat() + this.getFat(),
                 food.getSalt() + this.getSalt(),
-                food.getCalories() + this.getCalories());
+                food.getCalories() + this.getCalories(),
+                food.organic && this.organic);
     }
 }
